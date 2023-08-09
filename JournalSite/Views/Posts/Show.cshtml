@@ -1,0 +1,16 @@
+﻿@model PostItem
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="color_block">
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content">
+        <h1>@Html.Raw(Model.Title)</h1>
+        @Html.Raw(Model.Text)
+        <div>
+            <img class="img-block" src="~/images/@Model.TitleImagePath" alt="" />
+        </div>
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>

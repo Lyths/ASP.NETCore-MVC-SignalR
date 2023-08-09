@@ -1,0 +1,46 @@
+﻿@model IQueryable<Article>
+@{
+    ViewBag.Title = "Полученные заявки";
+}
+
+<div class="color_block" >
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content" >
+        <table class="table">
+            <tr>
+                <td><b>Отправитель</b></td>
+                <td><b>Автор статьи</b></td>
+                <td><b>Название статьи</b></td>
+                <td><b>Дата отправки</b></td>
+                <td><b>Прикрепленные файлы</b></td>
+                <td><b>Статус заявки</b></td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Sender</td>
+                    <td>@item.AuthorName</td>
+                    <td>@Html.Raw(@item.Text)</td>
+                    <td>
+                        @foreach (File files in item.Files)
+                        {
+                            <a asp-area="Moderator" asp-controller="Article" asp-action="Download" asp-route-filePath="@files.FilePath">@files.FilePath<br /></a>
+                        }
+                    </td>
+                    <td>@item.State</td>
+                    <td>
+                        <p>
+                            <a asp-area="Moderator" asp-controller="Article" asp-action="Deny" asp-route-artState="@item.Id">Отклонить</a>
+                            /
+                            <a asp-area="Moderator" asp-controller="Article" asp-action="Accept" asp-route-artState="@item.Id">Принять</a>
+                        </p>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>
+
+
+

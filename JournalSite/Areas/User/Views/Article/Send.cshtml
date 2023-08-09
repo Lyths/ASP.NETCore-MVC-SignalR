@@ -1,0 +1,43 @@
+﻿@model Article
+@{
+    ViewBag.Title = "Отправить статью";
+}
+
+<div class="color_block">
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content">
+        <form asp-area="User" asp-controller="Article" asp-action="Send" enctype="multipart/form-data" method="post">
+            <input type="hidden" asp-for="Sender" value="@Context.User.Identity.Name" />
+
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="div-box">
+                <label asp-for="AuthorName"></label><br />
+                <input type="text" asp-for="AuthorName" autocomplete="off" /><br />
+                <span asp-validation-for="AuthorName" class="text-danger"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="Text"></label>
+                <textarea asp-for="Text" autocomplete="off"></textarea><br />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div><br />
+            <div class="div-box">
+                <input type="file" name="upload" id="upload" multiple="multiple" accept="image/*,.doc,.docx" /><br />
+            </div><br />
+            <input type="submit" value="Отправить статью" />
+        </form>
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>
+
+<script>
+    window.onload = function () {
+        ClassicEditor
+            .create(document.querySelector('#@Html.IdFor(x => x.Text)'))
+            .then(@Html.IdFor(x => x.Text) => {
+                console.log(@Html.IdFor(x => x.Text));
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+</script>

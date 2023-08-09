@@ -1,0 +1,32 @@
+﻿@model AddJournalNumberViewModel
+@{
+    ViewBag.Title = "Добавить номер журнала";
+}
+
+<div class="wrapper2">
+    <div class="color_block form">
+        <em class="bt"><b>&nbsp;</b></em>
+        <div class="block_content">
+            <h1>Добавление нового номера журнала</h1>
+            <div>
+                <form asp-area="Moderator" asp-controller="Archive" asp-action="AddJournalNumber" method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div>
+                        <label asp-for="Year"></label><br />
+                        <input asp-for="Year" autocomplete="off"/>
+                        <span asp-validation-for="Year" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Name"></label><br />
+                        <input asp-for="Name"><br />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div><br />
+                    <div>
+                        <input type="submit" value="Сохранить" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <em class="bb"><b>&nbsp;</b></em>
+    </div>
+</div>

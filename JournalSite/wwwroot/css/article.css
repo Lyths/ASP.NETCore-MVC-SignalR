@@ -1,0 +1,57 @@
+﻿.article {
+    padding: 10px;
+}
+
+.block-round-content{
+    border-radius: 10px;
+    background:  #f677c5; /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+}
+
+.wrapper2 {
+    display: grid;
+    grid-template-rows: 150px 1fr 150px;
+    grid-template-columns: 20% 1fr 20%;
+    margin: 0;
+    grid-template-areas:
+        '. . .'
+        '. main .'
+        '. . .';
+}
+
+.form {
+    grid-area: main;
+    text-align: center;
+}
+
+
+.block-reverse{
+    display:flex;
+    flex-direction:column-reverse
+}
+
+.color_block {
+    border: 2px #808080 solid; /* Параметры рамки */
+    margin: 10px;
+   }
+   
+   em.bt, em.bt b, em.bb, em.bb b {
+    display: block; /* Блочный элемент */
+    height: 10px; /* Высота уголка */
+    font-size: 0; /* Размер шрифта */
+    background: url(../images/83_2.png) no-repeat; /* Путь к файлу с уголками */
+    position: relative; /* Относительное позиционирование */
+   }
+   em.bt { 
+    top: -2px; /* Сдвигаем левый верхний уголок вверх */
+    left: -2px; /* Сдвигаем влево */
+   }
+   em.bt b {
+    background-position:  100% -10px; /* Рисунок сдвигается к следующему уголку */
+    left: 4px; /* Сдвигаем вправо */
+   }
+   em.bb { background-position: 0 -20px; top: 2px; left: -2px; }
+   em.bb b { background-position: 100% -30px; left: 4px; }
+   .color_block .block_content {
+    padding: 0 7px; /* Поля вокруг текста */
+   }

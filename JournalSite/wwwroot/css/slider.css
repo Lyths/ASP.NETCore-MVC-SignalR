@@ -1,0 +1,110 @@
+﻿
+.karusel_snimka {
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 1900px;
+    height: 340px;
+    border: 7px solid white;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+}
+
+.karusel_shoumev {
+    width: 500%;
+    height: 364px;
+    display: flex;
+}
+
+    .karusel_shoumev input {
+        display: none;
+    }
+
+.sekus {
+    width: 20%;
+    transition: 2s;
+}
+
+    .sekus img {
+        width: 1890px;
+        height: 330px;
+    }
+
+.rukovodstvo_navigats {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: -60px;
+}
+
+.manual-btn {
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 1s;
+    border: 2px solid #459ac1;
+    padding: 5px;
+    width: 42px;
+    box-shadow: 1px 1px 5px 0px rgb(70 67 67 / 63%), 0px 0px 3px 0px rgb(40 37 37 / 60%);
+}
+
+    .manual-btn:not(:last-child) {
+        margin-right: 40px;
+    }
+
+    .manual-btn:hover {
+        background: #dd7a15;
+    }
+
+#radio1:checked ~ .first {
+    margin-left: 0;
+}
+
+#radio2:checked ~ .first {
+    margin-left: -20%;
+}
+
+#radio3:checked ~ .first {
+    margin-left: -40%;
+}
+
+#radio4:checked ~ .first {
+    margin-left: -60%;
+}
+
+/*css for automatic navigation*/
+
+.navigation-auto {
+    position: absolute;
+    justify-content: center;
+    margin-top: 460px;
+    display: flex;
+    width: 800px;
+}
+
+.automobile-sliv div {
+    border-radius: 8px;
+    transition: 1s;
+    border: 2px solid #f3b03a;
+    padding: 5px;
+    width: 30px;
+}
+
+    .automobile-sliv div:not(:last-child) {
+        margin-right: 40px;
+    }
+
+#radio1:checked ~ .automobile-sliv .auto-btn1 {
+    background: #d8f33a;
+}
+
+#radio2:checked ~ .automobile-sliv .auto-btn2 {
+    background: #d8f33a;
+}
+
+#radio3:checked ~ .automobile-sliv .auto-btn3 {
+    background: #d8f33a;
+}
+
+#radio4:checked ~ .automobile-sliv .auto-btn4 {
+    background: #d8f33a;
+}

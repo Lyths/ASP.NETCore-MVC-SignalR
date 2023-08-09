@@ -1,0 +1,160 @@
+﻿@model IQueryable<PostItem>
+@{
+    Layout = null;
+    ViewBag.Title = "Главная страница";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    @await Html.PartialAsync("MetaPartial")
+    @await Html.PartialAsync("CssPartial")
+</head>
+<body>
+    <div class="wrapper3">
+        <header class="header">
+            @await Html.PartialAsync("HeaderPartial")
+        </header>
+        <div class="slider">
+            <div class="karusel_snimka">
+                @await Html.PartialAsync("SliderPartial") 
+            </div>
+        </div>
+        <main class="article">
+            
+            <div class="">
+
+                <h1 style="border-bottom: solid red">Новости</h1>
+
+                @if (!Context.User.Identity.IsAuthenticated)
+                {
+                    @if (Model.Any())
+                    {
+                        <div class="block-reverse">
+                            @foreach (PostItem item in Model)
+                            {
+                                <div class="color_block">
+                                    <em class="bt"><b>&nbsp;</b></em>
+                                    <div class="block_content">
+                                        <a class="text-dark" asp-area="" asp-controller="Posts" asp-action="Index" asp-route-id="@item.Id">
+                                            <p>
+                                                <h4>@Html.Raw(item.Title)</h4>
+                                            </p>
+                                        </a>
+                                        <p>@Html.Raw(item.SubTitle)</p>
+                                        @if (item.TitleImagePath != null)
+                                        {
+                                            <img src="~/images/@item.TitleImagePath" alt="" class="img-block" />
+                                        }
+                                    </div>
+                                    <em class="bb"><b>&nbsp;</b></em>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+
+                @if ((await AuthorizationService.AuthorizeAsync(User, "ModeratorArea")).Succeeded)
+                {
+                    <div class="div-box">
+                        <a asp-area="Moderator" asp-controller="Post" asp-action="Edit" asp-route-id="">Создать публикацию</a>
+                    </div>
+                    @if (Model.Any())
+                    {
+                        <div class="block-reverse">
+                            @foreach (PostItem item in Model)
+                            {
+                                <div class="color_block">
+                                    <em class="bt"><b>&nbsp;</b></em>
+                                    <div class="block_content">
+                                        <div>
+                                            <a class="text-dark" asp-area="" asp-controller="Posts" asp-action="Index" asp-route-id="@item.Id">
+                                                <p>
+                                                    <h4>@Html.Raw(item.Title)</h4>
+                                                </p>
+                                            </a>
+                                            <p>@Html.Raw(item.SubTitle)</p>
+                                            @if (item.TitleImagePath != null)
+                                            {
+                                                <img src="~/images/@item.TitleImagePath" alt="" class="img-block" />
+                                            }
+                                        </div>
+                                        <a asp-area="Moderator" asp-controller="Post" asp-action="Edit" asp-route-id="@item.Id">Редактировать публикацию</a>
+
+                                        <form style="display: inline-block;" id="form-@item.Id" asp-area="Moderator" asp-controller="Post" asp-action="Delete" method="post">
+                                            <input type="hidden" name="id" value="@item.Id">
+                                            <a href="#" onclick="document.getElementById('form-@item.Id').submit();">Удалить публикацию</a>
+                                        </form>
+                                    </div>
+                                    <em class="bb"><b>&nbsp;</b></em>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                }
+                @if ((await AuthorizationService.AuthorizeAsync(User, "UserArea")).Succeeded)
+                {
+                    @if (Model.Any())
+                    {
+                        <div class="block-reverse">
+                            @foreach (PostItem item in Model)
+                            {
+                                <div class="color_block">
+                                    <em class="bt"><b>&nbsp;</b></em>
+                                    <div class="block_content">
+                                        <a class="text-dark" asp-area="" asp-controller="Posts" asp-action="Index" asp-route-id="@item.Id">
+                                            <p>
+                                                <h4>@Html.Raw(item.Title)</h4>
+                                            </p>
+                                        </a>
+                                        <p>@Html.Raw(item.SubTitle)</p>
+                                        @if (item.TitleImagePath != null)
+                                        {
+                                            <img src="~/images/@item.TitleImagePath" alt="" class="img-block" />
+                                        }
+                                    </div>
+                                    <em class="bb"><b>&nbsp;</b></em>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                }
+                @if ((await AuthorizationService.AuthorizeAsync(User, "AdminArea")).Succeeded)
+                {
+                    @if (Model.Any())
+                    {
+                        <div class="block-reverse">
+                            @foreach (PostItem item in Model)
+                            {
+                                <div class="color_block">
+                                    <em class="bt"><b>&nbsp;</b></em>
+                                    <div class="block_content">
+                                        <a class="text-dark" asp-area="" asp-controller="Posts" asp-action="Index" asp-route-id="@item.Id">
+                                            <p>
+                                                <h4>@Html.Raw(item.Title)</h4>
+                                            </p>
+                                        </a>
+                                        <p>@Html.Raw(item.SubTitle)</p>
+                                        @if (item.TitleImagePath != null)
+                                        {
+                                            <img src="~/images/@item.TitleImagePath" alt="" class="img-block" />
+                                        }
+                                    </div>
+                                    <em class="bb"><b>&nbsp;</b></em>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+
+            </div>
+        </main>
+        <footer class="footer">
+            @await Html.PartialAsync("FooterPartial")
+        </footer>
+        @await Html.PartialAsync("ScriptPartial")
+    </div>
+</body>
+</html>
+

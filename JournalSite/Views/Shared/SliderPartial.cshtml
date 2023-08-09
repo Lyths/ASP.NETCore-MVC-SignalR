@@ -1,0 +1,44 @@
+﻿<script>
+    var counter = 1;
+    setInterval(function () {
+        document.getElementById('radio' + counter).checked = true;
+        counter++;
+        if (counter > 4) {
+            counter = 1;
+        }
+    }, 8000);
+</script>
+<div class="karusel_shoumev">
+    <input type="radio" name="radio-btn" id="radio1">
+    <input type="radio" name="radio-btn" id="radio2">
+    <input type="radio" name="radio-btn" id="radio3">
+    <input type="radio" name="radio-btn" id="radio4">
+    <div class="sekus first">
+        <a href="https://stankin.ru/pages/id_82/page_1375">
+            <img src="~/images/slider_image/1.jpg" alt="">
+        </a>
+    </div>
+    <div class="sekus">
+        <a href="https://hr.stankin.ru/">
+            <img src="~/images/slider_image/2.jpg" alt="">
+        </a>
+    </div>
+    <div class="sekus">
+        <a href="https://dod.stankin.ru/">
+            <img src="~/images/slider_image/3.jpg" alt="">
+        </a>
+    </div>
+    <div class="sekus">
+        <a href="https://stankin.ru/pages/id_156/page_1322">
+            <img src="~/images/slider_image/4.jpg" alt="">
+        </a>
+    </div>
+</div>
+
+<div class="rukovodstvo_navigats">
+    <label for="radio1" class="manual-btn"></label>
+    <label for="radio2" class="manual-btn"></label>
+    <label for="radio3" class="manual-btn"></label>
+    <label for="radio4" class="manual-btn"></label>
+</div>
+               

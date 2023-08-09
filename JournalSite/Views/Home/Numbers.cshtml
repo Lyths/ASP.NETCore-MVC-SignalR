@@ -1,0 +1,99 @@
+﻿@model IQueryable<Archive_number>
+@{
+    ViewBag.Title = "Журнал";
+}
+
+@if (!Context.User.Identity.IsAuthenticated)
+{
+    @foreach (var number in Model)
+    {
+        <h1 style="border-bottom: solid red;">Журнал @number.Name</h1>
+        foreach (Archive_articles articles in number.Articles)
+        {
+            <div class="color_block">
+                <em class="bt"><b>&nbsp;</b></em>
+                <div class="block_content">
+                    <h2>@Html.Raw(articles.Title)</h2>
+                    <p>@Html.Raw(articles.Description)</p>
+
+                </div>
+                <em class="bb"><b>&nbsp;</b></em>
+            </div>
+        }
+
+    }
+}
+
+@if ((await AuthorizationService.AuthorizeAsync(User, "ModeratorArea")).Succeeded)
+{
+    @foreach (var number in Model)
+    {
+        <h1 style="border-bottom: solid red;">Журнал @number.Name</h1>
+        <div class="div-box">
+            <a asp-area="Moderator" asp-controller="Archive" asp-action="AddArticles" asp-route-id="@number.Id">Создать публикацию</a>
+        </div>
+        foreach (Archive_articles articles in number.Articles)
+        {
+            <div class="color_block">
+                <em class="bt"><b>&nbsp;</b></em>
+                <div class="block_content">
+                    <h2>@Html.Raw(articles.Title)</h2>
+                    <p>@Html.Raw(articles.Description)</p>
+
+                    <form style="display: inline-block;" id="form-@articles.Id" asp-area="Moderator" asp-controller="Archive" asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@articles.Id">
+                        <a href="#" onclick="document.getElementById('form-@articles.Id').submit();">Удалить публикацию</a>
+                    </form>
+                </div>
+                <em class="bb"><b>&nbsp;</b></em>
+            </div>
+        }
+
+    }
+}
+@if ((await AuthorizationService.AuthorizeAsync(User, "UserArea")).Succeeded)
+{
+    @foreach (var number in Model)
+    {
+        <h1 style="border-bottom: solid red;">Журнал @number.Name</h1>
+        foreach (Archive_articles articles in number.Articles)
+        {
+            <div class="color_block">
+                <em class="bt"><b>&nbsp;</b></em>
+                <div class="block_content">
+                    <h2>@Html.Raw(articles.Title)</h2>
+                    <p>@Html.Raw(articles.Description)</p>
+                    @if (Context.User.Identity.Name == articles.Sender)
+                    {
+                        <a asp-area="User" asp-action="Download" asp-controller="Article" asp-route-filePath="@articles.Path">[Скачать]</a>
+                    }
+
+                </div>
+                <em class="bb"><b>&nbsp;</b></em>
+            </div>
+        }
+
+    }
+}
+@if ((await AuthorizationService.AuthorizeAsync(User, "AdminArea")).Succeeded)
+{
+    @foreach (var number in Model)
+    {
+        <h1 style="border-bottom: solid red;">Журнал @number.Name</h1>
+        foreach (Archive_articles articles in number.Articles)
+        {
+            <div class="color_block">
+                <em class="bt"><b>&nbsp;</b></em>
+                <div class="block_content">
+                    <h2>@Html.Raw(articles.Title)</h2>
+                    <p>@Html.Raw(articles.Description)</p>
+
+                </div>
+                <em class="bb"><b>&nbsp;</b></em>
+            </div>
+        }
+
+    }
+}
+
+

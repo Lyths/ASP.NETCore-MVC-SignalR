@@ -1,0 +1,26 @@
+﻿@model ChangeRoleViewModel;
+@{
+    ViewBag.Title = "Редактирование пользователей";
+}
+<h1 style="border-bottom: solid red">Изменение ролей для пользователя @Model.UserEmail</h1>
+<div class="color_block" >
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content" >
+        <form asp-area="Admin" asp-controller="Roles" asp-action="Edit" method="post">
+            <input type="hidden" name="userId" value="@Model.UserId" />
+            <div class="form-group">
+                @foreach (IdentityRole role in Model.AllRoles)
+                {
+                    <input type="checkbox" name="roles" value="@role.Name"
+                       @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />
+
+                    @role.Name <br />
+                }
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>
+
+

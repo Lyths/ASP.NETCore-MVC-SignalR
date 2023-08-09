@@ -1,0 +1,78 @@
+﻿    <div class="header_section">
+        <div class="headerlogo">
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/svg/logo_ru.svg" alt="logo">
+            </a>
+        </div>
+        <div class="header_item ">
+            <a style="text-decoration: none;" asp-area="" asp-action="About" asp-controller="Home">О Журнале</a>
+        </div>
+        <div class="header_item ">
+            <a style="text-decoration: none;" asp-area="" asp-action="Requirements" asp-controller="Home">Требования к публикуемым статьям и их оформлению</a>
+        </div>
+        <div class="header_item ">
+            <a style="text-decoration: none;" asp-area="" asp-action="Contacts" asp-controller="Home">Контактная информация</a>
+        </div>
+        <div class="header_item ">
+            <a style="text-decoration: none;" asp-area="" asp-action="Archive" asp-controller="Home">Архив</a>
+        </div>
+    </div>
+    <div class="header_section">
+        <div class="headerButton">
+            @if (!Context.User.Identity.IsAuthenticated)
+            {
+                <a class="dropdown-button" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+            }
+            @if ((await AuthorizationService.AuthorizeAsync(User, "AdminArea")).Succeeded)
+            {
+                <div class="dropdown">
+                    <button easy-toggle="#menu" easy-class="show" easy-rcoe class="dropdown-button">
+                        <span class="HeaderBtnName">Пользователь</span>
+                        <img src="~/svg/icon1.svg" class="drop-down__icon">
+                    </button>
+                    <div id="menu" class="dropdown-menu">
+                    <a asp-area="" asp-controller="Account" asp-action="ChangePassword">Сменить пароль</a>
+                        <a asp-area="Admin" asp-controller="Roles" asp-action="UserList">Панель администратора</a>
+                        <a asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
+                    </div>
+                </div>
+            }
+            @if ((await AuthorizationService.AuthorizeAsync(User, "UserArea")).Succeeded)
+            {
+                <div class="dropdown">
+                    <button easy-toggle="#menu" easy-class="show" easy-rcoe class="dropdown-button">
+                        <span class="HeaderBtnName">Пользователь</span>
+                        <img src="~/svg/icon1.svg" class="drop-down__icon">
+                    </button>
+                    <div id="menu" class="dropdown-menu">
+                        <a asp-area="" asp-controller="Account" asp-action="ChangePassword">Сменить пароль</a>
+                        <form id="Id" asp-area="User" asp-controller="Chat" asp-action="Group" method="post">
+                            <input type="hidden" name="username" value="@Context.User.Identity.Name">
+                            <a href="#" onclick="document.getElementById('Id').submit();" >Обратиться к поддержке</a>
+                        </form>
+                        <a asp-area="User" asp-controller="Article" asp-action="Articles">Мои заявки</a>
+                        <a asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
+                    </div>
+                </div>
+            }
+            @if ((await AuthorizationService.AuthorizeAsync(User, "ModeratorArea")).Succeeded)
+            {
+                <div class="dropdown">
+                    <button easy-toggle="#menu" easy-class="show" easy-rcoe class="dropdown-button">
+                        <span class="HeaderBtnName">Пользователь</span>
+                        <img src="~/svg/icon1.svg" class="drop-down__icon">
+                    </button>
+                    <div id="menu" class="dropdown-menu">
+                        <a asp-area="" asp-controller="Account" asp-action="ChangePassword">Сменить пароль</a>
+                        <a asp-area="Moderator" asp-controller="Archive" asp-action="AddJournalNumber">Добавить номер журнала в архив</a>
+                        <form id="Id" asp-area="Moderator" asp-controller="Chat" asp-action="Hub" method="post">
+                            <input type="hidden" name="username" value="@Context.User.Identity.Name">
+                            <a href="#" onclick="document.getElementById('Id').submit();">Связь с пользователями</a>
+                        </form>
+                        <a asp-area="Moderator" asp-controller="Article" asp-action="Articles">Отправленные статьи</a>
+                        <a asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
+                    </div>  
+                </div>
+            }
+        </div>
+    </div>

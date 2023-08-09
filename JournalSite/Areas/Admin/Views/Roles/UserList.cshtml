@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    ViewBag.Title = "Список пользователей";
+}
+<h1 style="border-bottom: solid red">Список пользователей</h1>
+<div class="color_block" >
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content" >
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Имя пользователя</th>
+                    <th>Электронная почта</th>
+                    <th>Блокировка пользователя</th>
+                    <th>Параметры доступа</th>
+                </tr>
+            </thead>
+            @foreach (var user in Model)
+            {
+                
+                <tbody>
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        @if (!user.LockoutEnd.HasValue)
+                        {
+                            <td>
+                                <form id="form-@user.Id" asp-area="Admin" asp-controller="Roles" asp-action="Block" method="post">
+                                    <input type="hidden" name="userId" value="@user.Id">
+                                    <a href="#" onclick="document.getElementById('form-@user.Id').submit();" class="btn btn-sm btn-primary">Заблокировать</a>
+                                </form>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <form id="form-@user.Id" asp-area="Admin" asp-controller="Roles" asp-action="UnBlock" method="post">
+                                    <input type="hidden" name="userId" value="@user.Id">
+                                    <a href="#" onclick="document.getElementById('form-@user.Id').submit();" class="btn btn-sm btn-primary">Разблокировать</a>
+                                </form>
+                            </td>
+                        }
+                        <td>
+                            <a asp-area="Admin" asp-controller="Roles" asp-action="Edit" asp-route-userid="@user.Id" class="btn btn-sm btn-primary">Настройки</a>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>
+

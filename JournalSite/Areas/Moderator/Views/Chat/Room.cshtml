@@ -1,0 +1,32 @@
+﻿@model IQueryable<Message>
+@{
+    ViewBag.Title = "Личные сообщения";
+}
+
+<div id="loginBlock">
+    <input id="userName" type="hidden" value="@Context.User.Identity.Name" />
+    <input id="groupName" type="hidden" value="@TempData["groupname"].ToString()" />
+</div>
+<br />
+
+<div class="wrapper-chat">
+    <div class="chat-message mes-block">
+        <em class="bt"><b>&nbsp;</b></em>
+        @foreach (var item in Model)
+        {
+            <p style="padding-left:10px;">
+                <b>@item.Sender:&nbsp;</b>@item.Text
+            </p>
+        }
+        <div id="chatroom" style="display:flex;flex-direction:column-reverse;padding-left:10px;"></div>
+    </div>
+    <form id="inputForm" class="chat-form" onsubmit="reset(); return false;">
+        Сообщение:<br />
+        <input type="text" id="message" autocomplete="off" />
+        <input type="submit" id="sendBtn" value="Отправить" />
+        <em class="bb"><b>&nbsp;</b></em>
+    </form>
+</div>
+
+<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/js/Chat.js" asp-append-version="true"></script>

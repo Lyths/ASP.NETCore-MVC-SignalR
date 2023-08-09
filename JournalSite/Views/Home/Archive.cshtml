@@ -1,0 +1,23 @@
+﻿@model IQueryable<Archive_year>
+@{
+    ViewBag.Title = "Архив";
+}
+
+<h1 style="border-bottom: solid red;">Архив</h1>
+<div class="color_block">
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content" style="display:flex;flex-direction:column-reverse">
+        @foreach (var year in Model)
+        {
+            
+            <ul>
+                @foreach (Archive_number number in year.Numbers)
+                {
+                    <li><a asp-area="" asp-action="Numbers" asp-controller="Home" asp-route-id="@number.Id">@number.Name</a></li>
+                }
+            </ul>
+            <h2>@year.Year</h2>
+        }
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>

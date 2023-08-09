@@ -1,0 +1,97 @@
+﻿@model PostItem
+@{
+    ViewBag.Title = "Редактировать запись";
+}
+@*Скрипт JavaScript для превью изображения*@
+<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script>
+    function ImagePreview(input)
+    {
+        let box = document.querySelector('.img-block');
+        let width = box.offsetWidth;
+        let height = box.offsetHeight;
+        if (input.files && input.files[0])
+        {
+            var reader = new FileReader();
+            reader.onload = function(e)
+            {
+                $('#image').prop('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+@*Форма для публикации*@
+<div class="color_block" >
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content" >
+        <form asp-area="Moderator" asp-controller="Post" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="DateAdded" />
+            <input type="hidden" asp-for="TitleImagePath" />
+
+            <div asp-validation-summary="ModelOnly"></div>
+            @*Заголовок*@
+            <div class="div-box">
+                <label asp-for="Title" ></label><br />
+                <textarea asp-for="Title" autocomplete="off"></textarea><br />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            @*Краткое описание публикации*@
+            <div class="div-box">
+                <label asp-for="SubTitle"></label><br />
+                <textarea asp-for="SubTitle" autocomplete="off"></textarea><br />
+                <span asp-validation-for="SubTitle" class="text-danger"></span>
+            </div>
+            @*Полное описание публикации*@
+            <div class="div-box">
+                <label asp-for="Text"></label>
+                <textarea asp-for="Text" autocomplete="off"></textarea><br />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div><br />
+            @*Прикрепление изображения*@
+            <div class="div-box">
+                <label asp-for="TitleImagePath"></label>
+                <input type="file" name="titleimagefile" id="titleimagefile" onchange="ImagePreview(this);" />
+                <div>
+                    <img id="image" class="img-block" src="~/images/@Model.TitleImagePath" alt="" />
+                </div>
+            </div>
+            @*Кнопка отправки данных*@
+            <input type="submit" value="Сохранить" />
+        </form>
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>
+@*Скрипт JavaScript для работы HTML - редактора*@
+<script>
+     window.onload = function()
+    {
+        ClassicEditor
+            .create(document.querySelector('#@Html.IdFor(x => x.Title)'))
+            .then(@Html.IdFor(x => x.Title) => {
+                console.log(@Html.IdFor(x => x.Title));
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+            ClassicEditor
+            .create(document.querySelector('#@Html.IdFor(x => x.SubTitle)'))
+            .then(@Html.IdFor(x => x.SubTitle) => {
+                console.log(@Html.IdFor(x => x.SubTitle));
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+            ClassicEditor
+            .create(document.querySelector('#@Html.IdFor(x => x.Text)'))
+            .then(@Html.IdFor(x => x.Text) => {
+                console.log(@Html.IdFor(x => x.Text));
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+</script>

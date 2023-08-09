@@ -1,0 +1,24 @@
+﻿@model IQueryable<Group>
+@{
+    ViewBag.Title = "Список чатов";
+}
+<h1 style="border-bottom: solid red">Список чатов</h1>
+<div class="color_block">
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content">
+        <ul class="hub">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <form class="block_content" asp-area="User" asp-controller="Chat" asp-action="Room" method="post">
+                        <input name="groupname" type="hidden" value="@item.GroupName">
+                        <input type="submit" value="Модерация" class="hub-btn">
+                    </form>
+                </li>
+            }
+        </ul>
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>
+
+

@@ -1,0 +1,58 @@
+﻿@model AddArticlesViewModel
+@{
+    ViewBag.Title = "Добавить статью";
+}
+
+<div class="color_block">
+    <em class="bt"><b>&nbsp;</b></em>
+    <div class="block_content">
+        <form asp-area="Moderator" asp-controller="Archive" asp-action="AddArticles" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly"></div>
+            <input type="hidden" asp-for="NumberId"/>
+
+            <div class="div-box">
+                <label asp-for="Title"></label><br />
+                <textarea asp-for="Title" autocomplete="off"></textarea><br />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="Sender"></label><br />
+                <input asp-for="Sender" autocomplete="off" /><br />
+                <span asp-validation-for="Sender" class="text-danger"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" autocomplete="off"></textarea><br />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div><br />
+            <div class="div-box">
+                <input type="file" name="articleFile" id="articleFile" />
+            </div><br />
+            <input type="submit" value="Сохранить" />
+        </form>
+    </div>
+    <em class="bb"><b>&nbsp;</b></em>
+</div>
+
+<script>
+    window.onload = function () {
+
+        ClassicEditor
+            .create(document.querySelector('#@Html.IdFor(x => x.Title)'))
+            .then(@Html.IdFor(x => x.Title) => {
+                console.log(@Html.IdFor(x => x.Title));
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#@Html.IdFor(x => x.Description)'))
+            .then(@Html.IdFor(x => x.Description) => {
+                console.log(@Html.IdFor(x => x.Description));
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+</script>

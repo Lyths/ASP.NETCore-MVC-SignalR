@@ -1,0 +1,42 @@
+﻿
+.wrapper-chat {
+    display: grid;
+    grid-template-rows: 60px 1fr 68px;
+    grid-template-columns: 20% 1fr 20%;
+    margin: 0;
+    height: 70vh;
+    grid-template-areas:
+        '. main .'
+        '. main .'
+        '. form .';
+}
+
+.chat-message {
+    grid-area: main;
+    font-size: 17px;
+    text-align: left;
+    border: 2px #808080 solid;
+}
+
+.mes-block{
+    overflow-x: hidden;
+    width:100%;
+}
+
+
+.chat-form {
+    grid-area: form;
+    text-align: center;
+    border: 2px #808080 solid;
+}
+
+.hub {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 25px;
+}
+
+.hub-btn {
+    width:100%;
+    height:60px;
+}
